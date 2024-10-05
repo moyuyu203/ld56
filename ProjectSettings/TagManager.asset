@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: GraphBackground
+    uniqueID: 3821863843
+    locked: 0
+  - name: GraphEdge
+    uniqueID: 568347501
+    locked: 0
+  - name: GraphNode
+    uniqueID: 1697630413
+    locked: 0
