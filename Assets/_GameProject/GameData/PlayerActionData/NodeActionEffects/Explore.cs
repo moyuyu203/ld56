@@ -8,7 +8,13 @@ namespace Antopia {
         public override void ApplyEffectTo(Graph graph, GraphNode node) {
             Debug.Log("Explore");
 
-            node.MarkAsExplored();
+            var antWorker = AntColony.instance.RequestAntWorker();
+            antWorker.MoveTo(node, () => {
+                node.MarkAsExplored();
+                antWorker.Deactivate();
+            });
+
+            
         }
     }
 }

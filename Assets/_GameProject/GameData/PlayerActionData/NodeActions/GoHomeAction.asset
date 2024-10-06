@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb779d6b00f66b4a813a53eefffb7e7, type: 3}
-  m_Name: ExploreAction
+  m_Name: GoHomeAction
   m_EditorClassIdentifier: 
   actionTitle: Explore
   conditions:

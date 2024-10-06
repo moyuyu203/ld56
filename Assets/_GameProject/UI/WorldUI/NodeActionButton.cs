@@ -23,7 +23,7 @@ namespace Antopia {
             m_ActionButton.onClick.AddListener(() => {
                
 
-                Debug.Log("On action button click");
+                //Debug.Log("On action button click");
                 actionSO.PerformAction(graph, node);
                 onComplete();
             });

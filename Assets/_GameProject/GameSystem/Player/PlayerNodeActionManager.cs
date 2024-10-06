@@ -7,10 +7,9 @@ namespace Antopia {
     public class PlayerNodeActionManager : MonoBehaviour {
         public static PlayerNodeActionManager instance { get; private set; }
 
-        public List<NodeActionSO> actions { get { return m_Actions;  } }
 
-        [SerializeField] private List<NodeActionSO> m_Actions = new List<NodeActionSO>();
-
+        [SerializeField] private List<NodeActionSO> m_FrontierNodeActions = new List<NodeActionSO>();
+        [SerializeField] private List<NodeActionSO> m_HomeNodeActions = new List<NodeActionSO>();   
 
         private void Awake() {
             Assert.IsNull(instance);
@@ -18,6 +17,17 @@ namespace Antopia {
             instance = this;
         }
 
+        public List<NodeActionSO> GetActions(Graph graph, GraphNode node) {
+            if (node.isHome) {
+                return m_HomeNodeActions;
+            }
+
+            if (graph.IsFrontier(node)) {
+                return m_FrontierNodeActions;
+            }
+
+            return new List<NodeActionSO>();
+        }
         
     }
 }

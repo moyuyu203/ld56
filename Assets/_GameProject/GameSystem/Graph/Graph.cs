@@ -9,6 +9,7 @@ namespace Antopia {
 
         public HashSet<GraphEdge> edges { get { return new HashSet<GraphEdge>(m_Edges); } }
 
+        public GraphNode homeColony { get; private set; }
 
         private HashSet<GraphNode> m_Nodes;
         private HashSet<GraphEdge> m_Edges;
@@ -40,6 +41,17 @@ namespace Antopia {
 
 
             }
+
+            //Cache home colony
+            foreach(var node in nodes) {
+                if (node.isHome) {
+                    Assert.IsNull(homeColony);//There should be only one home node.
+                    homeColony = node;
+                }
+
+            }
+
+            Assert.IsNotNull(homeColony);//There should be one and only one home node.
         }
 
         public bool IsFrontier(GraphNode node) {
