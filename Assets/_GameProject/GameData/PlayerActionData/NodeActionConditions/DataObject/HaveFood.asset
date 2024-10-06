@@ -9,15 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a281d361d93d36d4eb0700fc5091854c, type: 3}
-  m_Name: GraphSettingSO
+  m_Script: {fileID: 11500000, guid: a4d1f5bc7efa90748a3f0630217bfba2, type: 3}
+  m_Name: HaveFood
   m_EditorClassIdentifier: 
-  xGridSize: 6
-  yGridSize: 6
-  bigGridDistance: 5
-  smallGridDistance: 3
-  minEdgePerNode: 4
-  maxEdgePerNode: 5
-  hasFoodProbability: 100
-  minFood: 30
-  maxFood: 120

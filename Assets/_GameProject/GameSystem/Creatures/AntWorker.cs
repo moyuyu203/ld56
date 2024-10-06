@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Collections;
 
 namespace Antopia {
-    public class Creature : MonoBehaviour {
+    public class AntWorker : MonoBehaviour {
         private enum InternalState {
             Deactivated,
             Moving,
@@ -11,6 +12,7 @@ namespace Antopia {
         }
 
         [SerializeField] private GameObject m_Visual;
+        [SerializeField] private AntWorkerSettingSO m_SettingSO;
         
         private InternalState m_State = InternalState.Deactivated;
 
@@ -23,7 +25,7 @@ namespace Antopia {
        
 
         private Movement m_Movement;
-
+        private int m_FoodCarrying;
 
         private void Awake() {
             m_Movement = GetComponent<Movement>();
@@ -43,6 +45,11 @@ namespace Antopia {
         public void Deactivate() {
             m_Visual.SetActive(false);
             
+            if(m_FoodCarrying > 0) {
+                AntColony.instance.remainingFood += m_FoodCarrying;
+                m_FoodCarrying = 0;
+            }
+
             m_State = InternalState.Deactivated;
         }
         public void MoveTo(Graph graph, GraphNode targetNode, Action onComplete) {
@@ -73,7 +80,19 @@ namespace Antopia {
             });
         }
 
+        public void GatherFood(GraphNode node, Action onComplete) {
+            
+            StartCoroutine(GatheringFoodCoroutine(node, onComplete));
+        }
 
+     
+        
+        private IEnumerator GatheringFoodCoroutine(GraphNode node, Action onComplete) {
+            yield return new WaitForSeconds(m_SettingSO.collectingFoodDuration);
+            m_FoodCarrying = node.TryGetAsMuchFoodAsPossible(m_SettingSO.collectingFoodAmount);
+            onComplete();
+        }
+    
 
         private void Update() {
             if(m_State == InternalState.Moving) {
@@ -94,7 +113,7 @@ namespace Antopia {
                 m_Path.RemoveAt(0);
                 Debug.Log(m_CurrentNode);
                 Debug.Log(nextNode);
-                m_Movement.MoveTo(nextNode);
+                m_Movement.MoveTo(nextNode, m_SettingSO.moveSpeed);
 
             }
         }

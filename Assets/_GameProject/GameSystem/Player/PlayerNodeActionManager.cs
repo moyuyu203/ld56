@@ -9,7 +9,8 @@ namespace Antopia {
 
 
         [SerializeField] private List<NodeActionSO> m_FrontierNodeActions = new List<NodeActionSO>();
-        [SerializeField] private List<NodeActionSO> m_HomeNodeActions = new List<NodeActionSO>();   
+        [SerializeField] private List<NodeActionSO> m_HomeNodeActions = new List<NodeActionSO>();
+        [SerializeField] private List<NodeActionSO> m_ExploredNodeActions = new List<NodeActionSO>();
 
         private void Awake() {
             Assert.IsNull(instance);
@@ -24,6 +25,10 @@ namespace Antopia {
 
             if (graph.IsFrontier(node)) {
                 return m_FrontierNodeActions;
+            }
+
+            if (node.isExplored) {
+                return m_ExploredNodeActions;
             }
 
             return new List<NodeActionSO>();

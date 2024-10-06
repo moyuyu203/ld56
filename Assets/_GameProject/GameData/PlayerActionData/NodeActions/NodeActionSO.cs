@@ -23,7 +23,7 @@ namespace Antopia {
         public void PerformAction(Graph graph, GraphNode node) {
             Assert.IsTrue(CanTakeAction(graph, node));
 
-            Debug.Log("Perform action");
+            //Debug.Log("Perform action");
 
             foreach(var effect in effects) {
                 effect.ApplyEffectTo(graph,node);

@@ -13,7 +13,11 @@ namespace Antopia {
         public bool isHome { get; private set; }
 
         public bool isExplored { get; private set; }
+
+        public int food { get; set; }
      
+        public bool hasFood { get { return food > 0; } }
+
         public GraphNode(int id, Vector3 worldPosition, bool isHome) {
             this.id = id;
             this.worldPosition = worldPosition;
@@ -23,6 +27,17 @@ namespace Antopia {
                 MarkAsExplored();
             }
 
+        }
+
+        public int TryGetAsMuchFoodAsPossible(int requestAmount) {
+            if(food >= requestAmount) {
+                food -= requestAmount;
+                return requestAmount;
+            } else {
+                int getFood = food;
+                food = 0;
+                return getFood;
+            }
         }
 
         public void MarkAsExplored() {
@@ -54,6 +69,8 @@ namespace Antopia {
         public override string ToString() {
             return id.ToString();
         }
+
+        
 
     }
 }

@@ -5,22 +5,22 @@ using UnityEngine;
 
 namespace Antopia {
     public class Movement : MonoBehaviour {
-        [SerializeField] private float m_MoveSpeed;
+        private float m_MoveSpeed;
 
         public bool isMoving { get { return m_IsMoving; } }
 
         private GraphNode m_TargetNode;
         private bool m_IsMoving;
-        private Creature m_Creature;
+        private AntWorker m_Creature;
 
-        public void MoveTo(GraphNode targetNode) {
+        public void MoveTo(GraphNode targetNode, float moveSpeed) {
             m_IsMoving = true;
-          
+            m_MoveSpeed = moveSpeed;
             m_TargetNode = targetNode;
         }
 
         private void Start() {
-            m_Creature = GetComponent<Creature>();  
+            m_Creature = GetComponent<AntWorker>();  
         }
 
         private void Update() {

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feb779d6b00f66b4a813a53eefffb7e7, type: 3}
-  m_Name: ExploreAction
+  m_Name: GatheringFoodAction
   m_EditorClassIdentifier: 
-  actionTitle: Explore
+  actionTitle: Gather Food
   conditions:
-  - {fileID: 11400000, guid: f8e1ff8543fb55446858db2a181a7fd4, type: 2}
+  - {fileID: 11400000, guid: 86857b5403901774f9bb9958731a7c01, type: 2}
   - {fileID: 11400000, guid: 839a50e697bfc8d45924e1035efc257b, type: 2}
   - {fileID: 11400000, guid: 173cc20af19dd9942b3aa7f3b762bbc3, type: 2}
   effects:
-  - {fileID: 11400000, guid: aa6eac327fe136c439d31543e8bcfd83, type: 2}
+  - {fileID: 11400000, guid: a4c54779c6d1e1f41a586258bb638356, type: 2}

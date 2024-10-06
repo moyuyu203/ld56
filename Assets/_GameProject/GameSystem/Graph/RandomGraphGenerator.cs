@@ -118,6 +118,7 @@ namespace Antopia {
                         //nodes.Add(tempNode.node);
                     }
 
+                    tempNode.node.food = RandomSetFood();
                     nodes.Add(tempNode.node);
 
                 }
@@ -136,6 +137,19 @@ namespace Antopia {
              return new Graph(nodes, edges);
         }
 
+
+        private int RandomSetFood() {
+            int randomIndex = Random.Range(0, 100);
+            bool hasFood = randomIndex < m_GraphSetting.hasFoodProbability;
+
+            if (!hasFood) {
+                return 0;
+            }
+
+            int foodAmount = Random.Range(m_GraphSetting.minFood, m_GraphSetting.maxFood);
+
+            return foodAmount;
+        }
        
     }
 

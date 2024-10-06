@@ -9,6 +9,7 @@ namespace Antopia {
         [SerializeField] private GameObject m_Highlight;
         [SerializeField] private bool m_ShowDebugText;
         [SerializeField] private TextMeshProUGUI m_DebugText;
+        [SerializeField] private GameObject m_FoodVisual;
 
 
         private GraphNode m_Node;
@@ -57,6 +58,10 @@ namespace Antopia {
 
         private void Node_OnExplored(object sender, System.EventArgs e) {
             m_Image.color = Color.green;
+
+            if (m_Node.hasFood) {
+                m_FoodVisual.SetActive(true);
+            }
         }
     }
 }

@@ -15,7 +15,9 @@ namespace Antopia {
         public int minEdgePerNode = 2;
         public int maxEdgePerNode = 5;
 
-
+        public int hasFoodProbability = 33; // out of 100
+        public int minFood = 30;
+        public int maxFood = 120;
 
     }
 }

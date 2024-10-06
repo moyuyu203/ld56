@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Visual: {fileID: 8822645479989645756}
+  m_SettingSO: {fileID: 11400000, guid: 74421ea58ed93544b82059b4e8dc392c, type: 2}
 --- !u!114 &4587319703138767558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975a039904b30194db7701cb4ff8fbe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveSpeed: 0.6
 --- !u!1 &8822645479989645756
 GameObject:
   m_ObjectHideFlags: 0

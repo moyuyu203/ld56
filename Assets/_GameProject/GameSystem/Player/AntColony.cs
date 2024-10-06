@@ -5,10 +5,9 @@ using UnityEngine.Assertions;
 
 namespace Antopia {
     public class AntColony : MonoBehaviour {
-        
-        
         public static AntColony instance { get; private set; }
 
+        public int numberOfAntWorkers { get { return m_AntWorkersPool.Count; } }
         public int numberOfAntWorkersAvailable { get {
                 int count = 0;
                 foreach(var worker in m_AntWorkersPool) {
@@ -20,12 +19,15 @@ namespace Antopia {
             } 
         }
 
-        [SerializeField] private int m_StartAntWorkers = 2;
-        [SerializeField] private Creature m_AntWorkerPrefab;
+        [SerializeField] private AntColonySettingSO m_ColonySetting;
+
+        [SerializeField] private AntWorker m_AntWorkerPrefab;
 
         public Graph graph { get; set; }
-        private List<Creature> m_AntWorkersPool = new List<Creature>();
+        public int remainingFood { get;  set; }
+        private List<AntWorker> m_AntWorkersPool = new List<AntWorker>();
 
+        private float m_TimeTillNextFoodReduction;
 
         private void Awake() {
             Assert.IsNull(instance);
@@ -34,15 +36,43 @@ namespace Antopia {
         }
 
         private void Start() {
-            for(int i = 0; i < m_StartAntWorkers; i++) {
-                Creature worker = Instantiate(m_AntWorkerPrefab);
+            for(int i = 0; i < m_ColonySetting.startingWorkers; i++) {
+                AntWorker worker = Instantiate(m_AntWorkerPrefab);
                 m_AntWorkersPool.Add(worker);
                 worker.Deactivate();
 
             }
+
+            remainingFood = m_ColonySetting.startingFood;
+            m_TimeTillNextFoodReduction = m_ColonySetting.foodReductionTimeInSeconds;
         }
 
-        public Creature RequestAntWorker() {
+        private void Update() {
+            FoodUpdate();
+        }
+
+        private void FoodUpdate() {
+            m_TimeTillNextFoodReduction -= Time.deltaTime;
+
+            if(m_TimeTillNextFoodReduction <= 0) {
+                m_TimeTillNextFoodReduction = m_ColonySetting.foodReductionTimeInSeconds;
+
+                remainingFood -= m_ColonySetting.baseFoodComsumption + numberOfAntWorkers * m_ColonySetting.workerFoodComsumption;
+
+                if(remainingFood < 0) {
+                    remainingFood = 0;
+                    Starve();
+                }
+            }
+        }
+
+        private void Starve() {
+            Debug.Log("Starve");
+        }
+
+
+
+        public AntWorker RequestAntWorker() {
             Assert.IsTrue(numberOfAntWorkersAvailable > 0);
 
             foreach(var worker in m_AntWorkersPool) {
