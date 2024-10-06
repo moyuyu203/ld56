@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feb779d6b00f66b4a813a53eefffb7e7, type: 3}
-  m_Name: GoHomeAction
+  m_Script: {fileID: 11500000, guid: 53cd0ab55dd486c46bf557c4989875ab, type: 3}
+  m_Name: GoHomeEffect
   m_EditorClassIdentifier: 
-  actionTitle: Go Home
-  conditions:
-  - {fileID: 11400000, guid: 39ad3142b6de1644f932113d8dd00369, type: 2}
-  effects:
-  - {fileID: 11400000, guid: 9999eec8cf62c0d4e961d5c513c1aef7, type: 2}

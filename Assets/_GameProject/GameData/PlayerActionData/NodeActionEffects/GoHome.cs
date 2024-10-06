@@ -1,18 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoHome : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+namespace Antopia {
+    [CreateAssetMenu(fileName = "GoHomeEffect", menuName = "Antopia/NodeAction/Effects/GoHome")]
+    public class GoHome : NodeActionEffectSO {
+        public event EventHandler OnGoHome;
+        public override void ApplyEffectTo(Graph graph, GraphNode node) {
+            Debug.Log("Go Home");
+            OnGoHome?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

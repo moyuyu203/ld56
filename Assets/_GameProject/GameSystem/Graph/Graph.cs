@@ -57,6 +57,10 @@ namespace Antopia {
         public bool IsFrontier(GraphNode node) {
             Assert.IsTrue(m_AdjacencyMap.Keys.Contains(node));
 
+            if (node.isExplored) {
+                return false;
+            }
+
             foreach(var adjNode in m_AdjacencyMap[node]) {
                 if (adjNode.isExplored) {
                     return true;
