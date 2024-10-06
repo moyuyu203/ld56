@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Antopia {
-    public struct GraphEdge : IEquatable<GraphEdge> {
+    public class GraphEdge : IEquatable<GraphEdge> {
 
         public GraphNode nodeA;
         public GraphNode nodeB;

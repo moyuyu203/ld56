@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace Antopia {
@@ -12,7 +13,7 @@ namespace Antopia {
             foreach(var node in graph.nodes) {
                 GraphNodeVisual nodeVisual = Instantiate(m_GraphNodeVisualPrefab, transform);
 
-                nodeVisual.Setup(node);
+                nodeVisual.Setup(graph, node);
 
             }
 

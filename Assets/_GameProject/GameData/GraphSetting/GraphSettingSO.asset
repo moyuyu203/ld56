@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a281d361d93d36d4eb0700fc5091854c, type: 3}
   m_Name: GraphSettingSO
   m_EditorClassIdentifier: 
-  xGridSize: 2
-  yGridSize: 2
+  xGridSize: 6
+  yGridSize: 6
   bigGridDistance: 5
   smallGridDistance: 3
+  minEdgePerNode: 4
+  maxEdgePerNode: 5

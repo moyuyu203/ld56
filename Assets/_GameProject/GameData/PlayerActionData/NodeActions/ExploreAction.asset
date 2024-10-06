@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb779d6b00f66b4a813a53eefffb7e7, type: 3}
+  m_Name: ExploreAction
+  m_EditorClassIdentifier: 
+  actionTitle: Explore
+  conditions:
+  - {fileID: 11400000, guid: f8e1ff8543fb55446858db2a181a7fd4, type: 2}
+  effects:
+  - {fileID: 11400000, guid: aa6eac327fe136c439d31543e8bcfd83, type: 2}

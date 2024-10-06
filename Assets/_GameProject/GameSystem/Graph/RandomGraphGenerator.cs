@@ -22,6 +22,7 @@ namespace Antopia {
                     //Update ID
                     id++;
 
+                    bool isHome = xGridIndex == 0 && yGridIndex == 0;
                     //Get random world position.
                     float xOuterPosition = xGridIndex * m_GraphSetting.bigGridDistance;
                     float yOuterPosition = yGridIndex * m_GraphSetting.bigGridDistance;
@@ -41,7 +42,7 @@ namespace Antopia {
 
                     Vector3 randomWorldPosition = new Vector3(xRandom, yRandom, 0);
 
-                    GraphNode node = new GraphNode(id, randomWorldPosition);
+                    GraphNode node = new GraphNode(id, randomWorldPosition, isHome);
                     TempNode tempNode = new TempNode() {
                         node = node,
                         remainEdges = Random.Range(m_GraphSetting.minEdgePerNode, m_GraphSetting.maxEdgePerNode + 1)
