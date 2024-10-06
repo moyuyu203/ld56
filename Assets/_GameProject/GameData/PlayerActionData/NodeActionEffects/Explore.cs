@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Antopia {
@@ -9,9 +7,9 @@ namespace Antopia {
             Debug.Log("Explore");
 
             var antWorker = AntColony.instance.RequestAntWorker();
-            antWorker.MoveTo(node, () => {
+            antWorker.MoveTo(graph, node, () => {
                 node.MarkAsExplored();
-                antWorker.Deactivate();
+                antWorker.MoveBackAndDeactivate(graph);
             });
 
             

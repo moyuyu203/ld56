@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -6,6 +7,9 @@ namespace Antopia {
     public class GraphNodeVisual : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler {
         [SerializeField] private Image m_Image;
         [SerializeField] private GameObject m_Highlight;
+        [SerializeField] private bool m_ShowDebugText;
+        [SerializeField] private TextMeshProUGUI m_DebugText;
+
 
         private GraphNode m_Node;
         private Graph m_Graph;
@@ -31,6 +35,12 @@ namespace Antopia {
             transform.position = node.worldPosition;
             m_Node = node;
             m_Graph = graph;
+
+            if (m_ShowDebugText) {
+                m_DebugText.text = node.id.ToString();
+            } else {
+                m_DebugText.gameObject.SetActive(false);
+            }
 
             m_Node.OnExplored += Node_OnExplored;
 
