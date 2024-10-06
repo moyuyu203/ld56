@@ -7,40 +7,136 @@ namespace Antopia {
     public class RandomGraphGenerator : MonoBehaviour{
         [SerializeField] private GraphSettingSO m_GraphSetting;
 
-        public Graph MakeGraph() {
-            List<GraphNode> nodes = new List<GraphNode>();
-            List<GraphEdge> edges = new List<GraphEdge>();
-
-            //Make home node.
-            GraphNode homeNode = new GraphNode(1, Vector3.zero);
-            nodes.Add(homeNode);
-
-            //Add some dummy nodes.
-            GraphNode dummy1 = new GraphNode(2, new Vector3(2,-3,0));
-            nodes.Add(dummy1);
-
-            //Add some dummy nodes.
-            GraphNode dummy2 = new GraphNode(3, new Vector3(4, 2, 0));
-            nodes.Add(dummy2);
-
-            //Add some dummy nodes.
-            GraphNode dummy3 = new GraphNode(4, new Vector3(-4, 2, 0));
-            nodes.Add(dummy3);
-
-
-
-            //Add dummy edges.
-            // Create and return the graph
-            edges.Add(new GraphEdge(nodes[0], nodes[1]));
-            edges.Add(new GraphEdge(nodes[0], nodes[2]));
-            edges.Add(new GraphEdge(nodes[1], nodes[2]));
-            edges.Add(new GraphEdge(nodes[0], nodes[3]));
-
-            return new Graph(nodes, edges);
+        private class TempNode {
+            public GraphNode node;
+            public int remainEdges;
         }
 
+        public Graph MakeGraph() {
+            TempNode[,] tempNodeMatrix = new TempNode[m_GraphSetting.xGridSize, m_GraphSetting.yGridSize];
+            List<GraphEdge> tempEdges = new List<GraphEdge>();
 
-        
+            int id = 0;
+            for(int xGridIndex = 0; xGridIndex < m_GraphSetting.xGridSize; xGridIndex++) {
+                for(int yGridIndex = 0; yGridIndex < m_GraphSetting.yGridSize; yGridIndex++) {
+                    //Update ID
+                    id++;
+
+                    //Get random world position.
+                    float xOuterPosition = xGridIndex * m_GraphSetting.bigGridDistance;
+                    float yOuterPosition = yGridIndex * m_GraphSetting.bigGridDistance;
+
+                    float paddingOffset = (m_GraphSetting.bigGridDistance - m_GraphSetting.smallGridDistance) / 2;
+
+                    float xInnerPosition = xOuterPosition + paddingOffset;
+                    float yInnerPosition = yOuterPosition + paddingOffset;
+
+                    float xInnerCellOuterBound = xInnerPosition + m_GraphSetting.smallGridDistance;
+                    float yInnerCellOuterBound = yInnerPosition + m_GraphSetting.smallGridDistance;
+
+
+                    //Random World Position.
+                    float xRandom = Random.Range(xInnerPosition, xInnerCellOuterBound);
+                    float yRandom = Random.Range(yInnerPosition, yInnerCellOuterBound);
+
+                    Vector3 randomWorldPosition = new Vector3(xRandom, yRandom, 0);
+
+                    GraphNode node = new GraphNode(id, randomWorldPosition);
+                    TempNode tempNode = new TempNode() {
+                        node = node,
+                        remainEdges = Random.Range(m_GraphSetting.minEdgePerNode, m_GraphSetting.maxEdgePerNode + 1)
+                    };
+                    tempNodeMatrix[xGridIndex, yGridIndex] = tempNode;
+                }
+            }
+
+            //Fill out edges.
+            for(int _ = 0; _ < m_GraphSetting.maxEdgePerNode; _++) {
+                for(int x = 0; x < m_GraphSetting.xGridSize; x++) {
+                    for(int y = 0; y < m_GraphSetting.yGridSize; y++) {
+
+                        TempNode selfCell = tempNodeMatrix[x, y];
+                        if (selfCell.remainEdges == 0) {
+                            continue;//Skip, because can't add edges.
+                        }
+
+                        List<TempNode> tempNodesToChooseFrom = new List<TempNode>();
+
+                        //Right temp node
+                        if(x + 1 < m_GraphSetting.xGridSize && tempNodeMatrix[x + 1, y].remainEdges > 0) {
+                            tempNodesToChooseFrom.Add(tempNodeMatrix[x + 1, y]);
+                        }
+
+                        //Up temp node
+                        if (y + 1 < m_GraphSetting.yGridSize && tempNodeMatrix[x, y + 1].remainEdges > 0) {
+                            tempNodesToChooseFrom.Add(tempNodeMatrix[x, y + 1]);
+                        }
+
+                        //Up right node
+                        if (x + 1 < m_GraphSetting.xGridSize && y + 1 < m_GraphSetting.yGridSize && tempNodeMatrix[x + 1, y + 1].remainEdges > 0) {
+                            tempNodesToChooseFrom.Add(tempNodeMatrix[x + 1, y + 1]);
+                        }
+
+                        if(tempNodesToChooseFrom.Count == 0) {
+                            continue; //Skip.
+                        }
+
+                        //Make new edge
+                        int randomIndex = Random.Range(0, tempNodesToChooseFrom.Count);
+                        TempNode tempNodeToAdd = tempNodesToChooseFrom[randomIndex];
+
+                        selfCell.remainEdges--;
+                        tempNodeToAdd.remainEdges--;
+                        GraphEdge newEdge = new GraphEdge(selfCell.node, tempNodeToAdd.node);
+                        tempEdges.Add(newEdge);
+
+
+                    }
+
+                }
+
+
+            }
+
+            //Filter invalid nodes and edges.
+
+
+
+
+
+            HashSet<GraphNode> nodes = new HashSet<GraphNode>();
+            HashSet<GraphEdge> edges = new HashSet<GraphEdge>();
+
+            //Filter invalid nodes and edges.
+
+            
+            for (int x = 0; x < m_GraphSetting.xGridSize; x++) {
+                for (int y = 0; y < m_GraphSetting.yGridSize; y++) {
+                    TempNode tempNode = tempNodeMatrix[x, y];
+                    if (tempNode.remainEdges == 0) {
+                        //nodes.Add(tempNode.node);
+                    }
+
+                    nodes.Add(tempNode.node);
+
+                }
+            }
+
+            foreach(var tempEdge in tempEdges) {
+                if(tempEdge.nodes.IsSubsetOf(nodes)) {
+                    //edges.Add(tempEdge);
+                }
+
+                edges.Add(tempEdge);
+            }
+            
+
+
+             return new Graph(nodes, edges);
+        }
+
        
     }
+
 }
+

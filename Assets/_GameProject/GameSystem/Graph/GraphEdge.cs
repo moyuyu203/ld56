@@ -3,17 +3,25 @@ using System.Collections.Generic;
 
 namespace Antopia {
     public struct GraphEdge : IEquatable<GraphEdge> {
-        public GraphNode nodeA { get; private set; }
-        public GraphNode nodeB { get; private set; }
+
+        public GraphNode nodeA;
+        public GraphNode nodeB;
+
+        public HashSet<GraphNode> nodes {
+
+            get {
+                return new HashSet<GraphNode> { nodeA, nodeB };
+            }
+        }
 
         public GraphEdge(GraphNode nodeA, GraphNode nodeB) {
             this.nodeA = nodeA;
             this.nodeB = nodeB;
         }
+
         public override bool Equals(object obj) {
             return obj is GraphEdge otherEdge &&
-                nodeA == otherEdge.nodeA &&
-                nodeB == otherEdge.nodeB;
+                    otherEdge.nodes.IsSubsetOf(nodes);
 
         }
 
@@ -23,7 +31,7 @@ namespace Antopia {
 
 
         public static bool operator ==(GraphEdge edgeA, GraphEdge edgeB){
-            return  edgeA.nodeA == edgeB.nodeA && edgeA.nodeB == edgeB.nodeB;
+            return edgeA.nodes.IsSubsetOf(edgeB.nodes);
 
         }
 
@@ -32,11 +40,7 @@ namespace Antopia {
         }
 
         public override int GetHashCode() {
-            return HashCode.Combine(nodeA, nodeB);
-        }
-
-        public override string ToString() {
-            return "(${nodeA}, ${nodeB})";
+            return HashCode.Combine(nodes);
         }
     }
 }

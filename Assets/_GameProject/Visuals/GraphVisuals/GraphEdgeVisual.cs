@@ -10,6 +10,8 @@ namespace Antopia {
         public void Setup(GraphEdge edge) {
             //Set line position.
             m_LineRenderer.positionCount = 2;
+            
+           
             m_LineRenderer.SetPosition(0, edge.nodeA.worldPosition);
             m_LineRenderer.SetPosition(1, edge.nodeB.worldPosition);
 
