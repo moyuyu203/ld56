@@ -5,6 +5,8 @@ using UnityEngine;
 namespace Antopia {
 
     public class GraphNode : IEquatable<GraphNode> {
+        public static event EventHandler OnAnyNodeExplored;
+
         public event EventHandler OnExplored;
         public event EventHandler OnFoodUpdate;
         public event EventHandler OnEnemyDead;
@@ -14,6 +16,16 @@ namespace Antopia {
         public Vector3 worldPosition { get; private set; }
 
         public bool isHome { get; private set; }
+
+        public bool isBlocked { get {
+
+                if(hasEnemy || !isExplored) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } 
+        }
 
         public bool isExplored { get; private set; }
 
@@ -28,14 +40,18 @@ namespace Antopia {
         public int remainEnemyHp { get; private set; }
 
         public Vector3 gotoPositionOffset { get {
-                if (hasEnemy) {
-                    return new Vector3(-1, -1, 0) * 0.5f;
+                if (hasEnemy || hasFood) {
+                    
+                    return new Vector3(1, -1, 0) * 0.4f + new Vector3(0, -1, 0) * 0.35f * Mathf.Max(0, numberOfUnits);
+                  
                 }
 
                 return Vector3.zero;
 
             } 
         }
+
+        public int numberOfUnits { get; set; }
         public GraphNode(int id, Vector3 worldPosition, bool isHome) {
             this.id = id;
             this.worldPosition = worldPosition;
@@ -74,10 +90,16 @@ namespace Antopia {
         public int TryGetAsMuchFoodAsPossible(int requestAmount) {
             if(food >= requestAmount) {
                 food -= requestAmount;
+
+                
+                OnFoodUpdate?.Invoke(this, EventArgs.Empty);
                 return requestAmount;
             } else {
                 int getFood = food;
                 food = 0;
+
+
+                OnFoodUpdate?.Invoke(this, EventArgs.Empty);
                 return getFood;
             }
         }
@@ -99,6 +121,7 @@ namespace Antopia {
             isExplored = true;
             WinManager.instance.CheckWin();
             OnExplored?.Invoke(this, EventArgs.Empty);
+            OnAnyNodeExplored?.Invoke(this, EventArgs.Empty);
         }
 
         public override bool Equals(object obj) {

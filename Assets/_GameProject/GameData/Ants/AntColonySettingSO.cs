@@ -15,6 +15,7 @@ namespace Antopia {
 
         public int workerCost = 2;
         public int soldierCost = 4;
+        public int soldierFoodComsumption = 2;
 
     }
 }

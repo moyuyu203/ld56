@@ -8,13 +8,15 @@ namespace Antopia {
         [SerializeField] private RandomGraphGenerator m_RandomGenerator;
         [SerializeField] private AntColony m_AntColony;
         private void Start() {
-           Graph graph = m_RandomGenerator.MakeGraph();
+            Graph graph = m_RandomGenerator.MakeGraph();
 
             WinManager.instance.graph = graph;
 
-            m_GraphRenderer.RenderGraph(graph);
+            
 
             m_AntColony.graph = graph;
+
+            m_GraphRenderer.RenderGraph(graph);
         }
 
 

@@ -84,7 +84,8 @@ namespace Antopia {
         }
 
         /// <summary>
-        /// Finds the shortest path between two nodes using Dijkstra's algorithm.
+        /// Finds the shortest path between two nodes using Dijkstra's algorithm, bypassing blocked nodes.
+        /// The target node can be blocked and will still be included in the path if reachable.
         /// </summary>
         /// <param name="source">The starting node.</param>
         /// <param name="target">The target node.</param>
@@ -114,6 +115,11 @@ namespace Antopia {
                 }
 
                 foreach (var neighbor in GetNeighbors(current)) {
+                    // Skip blocked nodes unless it's the target node
+                    if (neighbor.isBlocked && !neighbor.Equals(target)) {
+                        continue;
+                    }
+
                     float weight = Vector3.Distance(current.worldPosition, neighbor.worldPosition);
                     float altDistance = distances[current] + weight;
 
@@ -126,7 +132,7 @@ namespace Antopia {
             }
 
             // Reconstruct the shortest path
-            if (!previous.ContainsKey(target)) {
+            if (!previous.ContainsKey(target) && !source.Equals(target)) {
                 return new List<GraphNode>(); // Target not reachable
             }
 
@@ -135,6 +141,9 @@ namespace Antopia {
 
             while (!nodeInPath.Equals(source)) {
                 path.Add(nodeInPath);
+                if (!previous.ContainsKey(nodeInPath)) {
+                    return new List<GraphNode>(); // Path not found
+                }
                 nodeInPath = previous[nodeInPath];
             }
             path.Add(source);

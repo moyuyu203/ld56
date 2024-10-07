@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 namespace Antopia {
     public class GraphNodeVisual : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler {
+
+
         [SerializeField] private Image m_Image;
         [SerializeField] private GameObject m_Highlight;
         [SerializeField] private bool m_ShowDebugText;
@@ -13,7 +16,7 @@ namespace Antopia {
 
         [SerializeField] private GameObject m_EnemyVisualContainer;
         [SerializeField] private TextMeshProUGUI m_EnemyText;
- 
+        [SerializeField] private GameObject m_FrontierIndicator;
 
         private GraphNode m_Node;
         private Graph m_Graph;
@@ -61,8 +64,17 @@ namespace Antopia {
                 m_Image.color = Color.gray;
             }
 
-            
+            UpdateFrontier();
+            GraphNode.OnAnyNodeExplored += GraphNode_OnAnyNodeExplored;
 
+        }
+
+        private void OnDestroy() {
+            GraphNode.OnAnyNodeExplored -= GraphNode_OnAnyNodeExplored;
+        }
+
+        private void GraphNode_OnAnyNodeExplored(object sender, System.EventArgs e) {
+            UpdateFrontier();
         }
 
         private void Node_OnEnemyDead(object sender, System.EventArgs e) {
@@ -87,6 +99,17 @@ namespace Antopia {
             if (m_Node.hasEnemy) {
                 m_EnemyVisualContainer.SetActive(true);
                 m_EnemyText.text = m_Node.enemy.enemyName;
+            }
+        }
+
+        private void UpdateFrontier() {
+
+            if (AntColony.instance.graph.IsFrontier(m_Node)) {
+
+                m_FrontierIndicator.SetActive(true);
+            } else {
+
+                m_FrontierIndicator.SetActive(false);
             }
         }
 

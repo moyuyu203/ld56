@@ -32,6 +32,7 @@ namespace Antopia {
         }
         public void Setup(GraphNode currentNode) {
             m_CurrentNode = currentNode;
+            m_CurrentNode.numberOfUnits++;
         }
 
         public void Activate() {
@@ -69,8 +70,9 @@ namespace Antopia {
         }
 
         public void UpdateCurrentNode(GraphNode node) {
+            m_CurrentNode.numberOfUnits--;
             m_CurrentNode = node;
-
+            m_CurrentNode.numberOfUnits++;
         }
 
         public void MoveBackAndDeactivate(Graph graph) {
@@ -81,7 +83,8 @@ namespace Antopia {
         }
 
         public void GatherFood(GraphNode node, Action onComplete) {
-            
+
+            transform.position += node.gotoPositionOffset;
             StartCoroutine(GatheringFoodCoroutine(node, onComplete));
         }
 

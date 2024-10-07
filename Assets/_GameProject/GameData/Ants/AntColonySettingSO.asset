@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingWorkers: 3
   startingSoldier: 2
-  startingFood: 30
-  foodReductionTimeInSeconds: 20
+  startingFood: 42
+  foodReductionTimeInSeconds: 24
   workerFoodComsumption: 1
   baseFoodComsumption: 3
-  workerCost: 2
-  soldierCost: 4
+  workerCost: 5
+  soldierCost: 8
+  soldierFoodComsumption: 2

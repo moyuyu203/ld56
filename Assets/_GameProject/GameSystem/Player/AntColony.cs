@@ -56,15 +56,20 @@ namespace Antopia {
         }
 
         public void AntDie(AntWorker antWorker) {
+            AntDiedPopUpManager.instance.AntDied(antWorker.transform.position + (Vector3.right * 0.3f));
+
             m_AntWorkersPool.Remove(antWorker);
 
             Destroy(antWorker.gameObject);
         }
 
         public void AntDie(AntSoldier antSoldier) {
+            AntDiedPopUpManager.instance.AntDied(antSoldier.transform.position + (Vector3.right * 0.3f));
+            
             m_AntSoldiersPool.Remove(antSoldier);
 
             Destroy(antSoldier.gameObject);
+
         }
 
         private void Start() {
@@ -97,6 +102,7 @@ namespace Antopia {
                 m_TimeTillNextFoodReduction = m_ColonySetting.foodReductionTimeInSeconds;
 
                 remainingFood -= m_ColonySetting.baseFoodComsumption + numberOfAntWorkers * m_ColonySetting.workerFoodComsumption;
+                remainingFood -= numberOfAntSoldier * m_ColonySetting.soldierFoodComsumption;
 
                 if(remainingFood < 0) {
                     remainingFood = 0;

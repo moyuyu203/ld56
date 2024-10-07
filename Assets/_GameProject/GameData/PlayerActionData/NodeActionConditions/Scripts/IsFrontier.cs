@@ -21,7 +21,7 @@ namespace Antopia {
                 errorMsg = "_";
                 return true;
             } else {
-                errorMsg = "It's not frontier";
+                errorMsg = "You must first explore the frontier before exploring this node.";
                 return false;
             }
 
