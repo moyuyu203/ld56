@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6981c949991076408b29cea84af9417, type: 3}
   m_Name: AntColonySettingSO
   m_EditorClassIdentifier: 
-  startingWorkers: 2
-  startingFood: 25
-  foodReductionTimeInSeconds: 10
+  startingWorkers: 3
+  startingSoldier: 2
+  startingFood: 30
+  foodReductionTimeInSeconds: 20
   workerFoodComsumption: 1
   baseFoodComsumption: 3
+  workerCost: 2
+  soldierCost: 4

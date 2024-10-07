@@ -18,9 +18,9 @@ MonoBehaviour:
   smallGridDistance: 3.5
   minEdgePerNode: 4
   maxEdgePerNode: 5
-  hasFoodProbability: 33
+  hasFoodProbability: 20
   minFood: 20
-  maxFood: 40
-  hasEnemyProbability: 33
+  maxFood: 30
+  hasEnemyProbability: 45
   enemySOs:
   - {fileID: 11400000, guid: 975ba3778f2507046a64b89b919a7e3b, type: 2}

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6c00c4d4657f34798c92196d8b32d3, type: 3}
   m_Name: AntWorkerSettingSO
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 1
   collectingFoodDuration: 5
   collectingFoodAmount: 5
