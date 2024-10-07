@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6c00c4d4657f34798c92196d8b32d3, type: 3}
-  m_Name: AntWorkerSettingSO
+  m_Script: {fileID: 11500000, guid: fae9cf3ea40ce4e499f412d8774eddd5, type: 3}
+  m_Name: Caterpillar
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  collectingFoodDuration: 5
-  collectingFoodAmount: 5
+  enemyName: Caterpillar
+  chanceToBeFound: 33
+  maxHp: 5
+  food: 40

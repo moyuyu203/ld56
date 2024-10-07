@@ -8,6 +8,21 @@ namespace Antopia {
         public static AntColony instance { get; private set; }
 
         public int numberOfAntWorkers { get { return m_AntWorkersPool.Count; } }
+
+        public int numberOfAntSoldier { get { return m_AntSoldiersPool.Count; } }
+
+        public int numberOfAntSoldiersAvailable { get {
+                int count = 0;
+                foreach (var soldier in m_AntSoldiersPool) {
+                    if (!soldier.isBusy) {
+                        count++;
+                    }
+                }
+                return count;
+
+            } 
+        }
+
         public int numberOfAntWorkersAvailable { get {
                 int count = 0;
                 foreach(var worker in m_AntWorkersPool) {
@@ -20,12 +35,13 @@ namespace Antopia {
         }
 
         [SerializeField] private AntColonySettingSO m_ColonySetting;
-
+        [SerializeField] private AntSoldier m_AntSoldierPrefab;
         [SerializeField] private AntWorker m_AntWorkerPrefab;
 
         public Graph graph { get; set; }
         public int remainingFood { get;  set; }
         private List<AntWorker> m_AntWorkersPool = new List<AntWorker>();
+        private List<AntSoldier> m_AntSoldiersPool = new List<AntSoldier>();
 
         private float m_TimeTillNextFoodReduction;
 
@@ -35,11 +51,30 @@ namespace Antopia {
             instance = this;
         }
 
+        public void AntDie(AntWorker antWorker) {
+            m_AntWorkersPool.Remove(antWorker);
+
+            Destroy(antWorker.gameObject);
+        }
+
+        public void AntDie(AntSoldier antSoldier) {
+            m_AntSoldiersPool.Remove(antSoldier);
+
+            Destroy(antSoldier.gameObject);
+        }
+
         private void Start() {
             for(int i = 0; i < m_ColonySetting.startingWorkers; i++) {
                 AntWorker worker = Instantiate(m_AntWorkerPrefab);
                 m_AntWorkersPool.Add(worker);
                 worker.Deactivate();
+
+            }
+
+            for (int i = 0; i < m_ColonySetting.startingSoldier; i++) {
+                var soldier = Instantiate(m_AntSoldierPrefab);
+                m_AntSoldiersPool.Add(soldier);
+                soldier.Deactivate();
 
             }
 
@@ -80,6 +115,19 @@ namespace Antopia {
                     worker.Setup(graph.homeColony);
                     worker.Activate();
                     return worker;
+                }
+            }
+
+            return null;
+        }
+        public AntSoldier RequestAntSoldier() {
+            Assert.IsTrue(numberOfAntSoldiersAvailable > 0);
+
+            foreach (var soldier in m_AntSoldiersPool) {
+                if (!soldier.isBusy) {
+                    soldier.Setup(graph.homeColony);
+                    soldier.Activate();
+                    return soldier;
                 }
             }
 

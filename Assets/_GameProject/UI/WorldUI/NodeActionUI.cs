@@ -36,7 +36,7 @@ namespace Antopia {
                 NodeActionButton actionButton = Instantiate(m_NodeActionButton, m_VisualContainer.transform);
                 actionButton.gameObject.SetActive(true);
 
-                actionButton.transform.position += (new Vector3(0, 1, 0)) * positionIndex * actionButtonPositionOffset;
+                actionButton.transform.position += (new Vector3(0, -1, 0)) * positionIndex * actionButtonPositionOffset;
                 actionButton.Setup(action, graph, node, () => {
                     Hide();
                 });

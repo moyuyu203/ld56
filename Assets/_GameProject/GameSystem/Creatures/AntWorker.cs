@@ -94,7 +94,7 @@ namespace Antopia {
         }
     
 
-        private void Update() {
+        protected virtual void Update() {
             if(m_State == InternalState.Moving) {
                 if (m_Movement.isMoving) {
                     return;

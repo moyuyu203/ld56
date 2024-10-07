@@ -8,6 +8,13 @@ namespace Antopia {
 
             var antWorker = AntColony.instance.RequestAntWorker();
             antWorker.MoveTo(graph, node, () => {
+                if (node.hasEnemy) {
+                    if (!node.TryExplore()) {
+                        AntColony.instance.AntDie(antWorker);
+                        return;
+                    }
+                }
+
                 node.MarkAsExplored();
                 antWorker.MoveBackAndDeactivate(graph);
             });

@@ -118,7 +118,16 @@ namespace Antopia {
                         //nodes.Add(tempNode.node);
                     }
 
-                    tempNode.node.food = RandomSetFood();
+                    //Set food or enemy.
+                    int randomNum = Random.Range(0, 100);
+
+                    if(randomNum < m_GraphSetting.hasFoodProbability) {
+                        tempNode.node.food = RandomSetFood();
+                    }else if(randomNum < m_GraphSetting.hasFoodProbability + m_GraphSetting.hasEnemyProbability) {
+                        tempNode.node.SetEnemy(RandomSelectAnEnemy());
+                    }
+
+                    
                     nodes.Add(tempNode.node);
 
                 }
@@ -139,17 +148,21 @@ namespace Antopia {
 
 
         private int RandomSetFood() {
-            int randomIndex = Random.Range(0, 100);
-            bool hasFood = randomIndex < m_GraphSetting.hasFoodProbability;
-
-            if (!hasFood) {
-                return 0;
-            }
+            
 
             int foodAmount = Random.Range(m_GraphSetting.minFood, m_GraphSetting.maxFood);
 
             return foodAmount;
         }
+
+        private EnemySO RandomSelectAnEnemy() {
+            int randomIndex = Random.Range(0, m_GraphSetting.enemySOs.Count);
+
+            return m_GraphSetting.enemySOs[randomIndex];
+        }
+
+
+        
        
     }
 

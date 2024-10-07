@@ -19,5 +19,9 @@ namespace Antopia {
         public int minFood = 30;
         public int maxFood = 120;
 
+        public int hasEnemyProbability = 33;
+        public List<EnemySO> enemySOs = new List<EnemySO>();    
+
+
     }
 }

@@ -1042,6 +1042,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ColonySetting: {fileID: 11400000, guid: cc06422692f50b94799c697ba171d607, type: 2}
+  m_AntSoldierPrefab: {fileID: 6326795845456662728, guid: 409cffd8eafd22d4c99a03682bf7276a,
+    type: 3}
   m_AntWorkerPrefab: {fileID: 4178352360179378522, guid: 1e606efba1b4ce54d98d6229d2220f4b,
     type: 3}
 --- !u!4 &405549270
@@ -3820,6 +3822,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 63eb19e3424eafa44af6cdf023825d89, type: 2}
   m_ExploredNodeActions:
   - {fileID: 11400000, guid: a6c85e0418d1fa341a8c5bf9b66436ba, type: 2}
+  - {fileID: 11400000, guid: 5b3b8fb7b6f3fac4ab9db93438a826cd, type: 2}
 --- !u!4 &1817069108
 Transform:
   m_ObjectHideFlags: 0

@@ -10,11 +10,12 @@ namespace Antopia {
         [SerializeField] private Button m_ActionButton;
         [SerializeField] private TextMeshProUGUI m_ButtonText;
         [SerializeField] private GameObject m_ActionGreyOut;
-
+        [SerializeField] private TextMeshProUGUI m_ErrorMsg;
 
         public void Setup(NodeActionSO actionSO, Graph graph, GraphNode node, Action onComplete) {
             //Debug.Log("Setup Action button");
-            if(!actionSO.CanTakeAction(graph, node)) {
+            if(!actionSO.CanTakeAction(graph, node, out string errorMsg)) {
+                m_ErrorMsg.text = errorMsg;
                 m_ActionGreyOut.SetActive(true);
             }
 

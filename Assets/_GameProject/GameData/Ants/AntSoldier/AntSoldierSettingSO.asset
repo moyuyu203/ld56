@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6c00c4d4657f34798c92196d8b32d3, type: 3}
-  m_Name: AntWorkerSettingSO
+  m_Script: {fileID: 11500000, guid: bae09a3ce9f27c4438eab4acb0060aca, type: 3}
+  m_Name: AntSoldierSettingSO
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  collectingFoodDuration: 5
-  collectingFoodAmount: 5
+  attackDamage: 1
+  attackSpeed: 3
+  probabilityToDieAtEachAttack: 40

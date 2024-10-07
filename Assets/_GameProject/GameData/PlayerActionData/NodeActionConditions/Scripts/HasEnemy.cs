@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Antopia {
-    [CreateAssetMenu(fileName = "HaveFood", menuName = "Antopia/NodeAction/Condition/HaveFood")]
-    public class HaveFood : NodeActionConditionSO {
+    [CreateAssetMenu(fileName = "HasEnemy", menuName = "Antopia/NodeAction/Condition/HasEnemy")]
+    public class HasEnemy : NodeActionConditionSO {
         public override bool IsSatisfied(Graph graph, GraphNode node, out string errorMsg) {
-            if (node.hasFood) {
+            if (node.hasEnemy) {
                 errorMsg = "";
                 return true;
             } else {
-                errorMsg = "No food to gather";
+                errorMsg = "There is no enemy. ";
                 return false;
             }
-
         }
     }
 }
