@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a281d361d93d36d4eb0700fc5091854c, type: 3}
   m_Name: GraphSettingSO
   m_EditorClassIdentifier: 
-  xGridSize: 6
-  yGridSize: 6
+  xGridSize: 4
+  yGridSize: 3
   bigGridDistance: 5
-  smallGridDistance: 3
+  smallGridDistance: 3.5
   minEdgePerNode: 4
   maxEdgePerNode: 5
-  hasFoodProbability: 0
-  minFood: 30
-  maxFood: 120
-  hasEnemyProbability: 100
+  hasFoodProbability: 33
+  minFood: 20
+  maxFood: 40
+  hasEnemyProbability: 33
   enemySOs:
   - {fileID: 11400000, guid: 975ba3778f2507046a64b89b919a7e3b, type: 2}

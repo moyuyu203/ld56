@@ -10,6 +10,8 @@ namespace Antopia {
         private void Start() {
            Graph graph = m_RandomGenerator.MakeGraph();
 
+            WinManager.instance.graph = graph;
+
             m_GraphRenderer.RenderGraph(graph);
 
             m_AntColony.graph = graph;

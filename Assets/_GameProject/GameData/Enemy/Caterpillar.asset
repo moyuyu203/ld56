@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Caterpillar
   m_EditorClassIdentifier: 
   enemyName: Caterpillar
-  chanceToBeFound: 33
-  maxHp: 5
+  chanceToBeFound: 77
+  maxHp: 3
   food: 40

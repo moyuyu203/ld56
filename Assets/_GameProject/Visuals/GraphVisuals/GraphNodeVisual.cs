@@ -1,5 +1,4 @@
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -90,5 +89,7 @@ namespace Antopia {
                 m_EnemyText.text = m_Node.enemy.enemyName;
             }
         }
+
+
     }
 }

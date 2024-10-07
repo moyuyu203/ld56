@@ -12,7 +12,9 @@ namespace Antopia {
 
         public int workerFoodComsumption = 1;
         public int baseFoodComsumption = 3;
-        
+
+        public int workerCost = 2;
+        public int soldierCost = 4;
 
     }
 }

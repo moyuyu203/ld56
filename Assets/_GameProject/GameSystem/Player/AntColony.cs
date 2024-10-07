@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -11,6 +12,10 @@ namespace Antopia {
 
         public int numberOfAntSoldier { get { return m_AntSoldiersPool.Count; } }
 
+        public float foodComsumptionBar { get {
+                return m_TimeTillNextFoodReduction / m_ColonySetting.foodReductionTimeInSeconds; 
+            } 
+        }
         public int numberOfAntSoldiersAvailable { get {
                 int count = 0;
                 foreach (var soldier in m_AntSoldiersPool) {
@@ -103,6 +108,35 @@ namespace Antopia {
 
         private void Starve() {
             Debug.Log("Starve");
+            WinManager.instance.Loss();
+        }
+
+        public bool CanAddAnt(AntType antType) {
+            if(antType == AntType.Worker && remainingFood  >= m_ColonySetting.workerCost) {
+                return true;
+            }
+            if (antType == AntType.Soldier && remainingFood >= m_ColonySetting.soldierCost) {
+                return true;
+            }
+
+            return false;
+
+        }
+
+        public void AddAnt(AntType antType) {
+            if (antType == AntType.Worker && remainingFood >= m_ColonySetting.workerCost) {
+                AntWorker worker = Instantiate(m_AntWorkerPrefab);
+                m_AntWorkersPool.Add(worker);
+                worker.Deactivate();
+                remainingFood -= m_ColonySetting.workerCost;
+            }
+            if (antType == AntType.Soldier && remainingFood >= m_ColonySetting.soldierCost) {
+                var soldier = Instantiate(m_AntSoldierPrefab);
+                m_AntSoldiersPool.Add(soldier);
+                soldier.Deactivate();
+                remainingFood -= m_ColonySetting.soldierCost;
+            }
+
         }
 
 

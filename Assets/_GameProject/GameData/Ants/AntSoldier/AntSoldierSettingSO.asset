@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 1
   attackSpeed: 3
-  probabilityToDieAtEachAttack: 40
+  probabilityToDieAtEachAttack: 1

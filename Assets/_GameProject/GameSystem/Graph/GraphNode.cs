@@ -66,6 +66,8 @@ namespace Antopia {
                 OnFoodUpdate?.Invoke(this, EventArgs.Empty);
                 OnEnemyDead?.Invoke(this, EventArgs.Empty);
             }
+
+            WinManager.instance.CheckWin();
         }
 
 
@@ -95,7 +97,7 @@ namespace Antopia {
 
         public void MarkAsExplored() {
             isExplored = true;
-
+            WinManager.instance.CheckWin();
             OnExplored?.Invoke(this, EventArgs.Empty);
         }
 
